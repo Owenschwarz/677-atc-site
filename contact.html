@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | 677 ATC</title>
+<meta name="description" content="Book a tour, request team training, or get in touch with 677 ATC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <nav>
+    <a href="index.html" class="logo"><span class="num">677</span> ATC</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="facility.html">Facility</a>
+      <a href="programs.html">Programs</a>
+      <a href="testing.html">Testing</a>
+      <a href="memberships.html">Memberships</a>
+      <a href="about.html">About</a>
+      <a href="contact.html" class="active">Contact</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Book a Tour</a>
+  </nav>
+</header>
+<section class="page-hero">
+  <svg class="rink-svg" viewBox="0 0 1180 800" preserveAspectRatio="xMidYMid slice">
+    <rect x="0" y="0" width="1180" height="800" rx="40" fill="none" stroke="#1E5F8C" stroke-width="3" opacity="0.4"/>
+    <line x1="590" y1="0" x2="590" y2="800" stroke="#D62839" stroke-width="2" opacity="0.5"/>
+    <line x1="300" y1="0" x2="300" y2="800" stroke="#1E5F8C" stroke-width="4" opacity="0.4"/>
+    <line x1="880" y1="0" x2="880" y2="800" stroke="#1E5F8C" stroke-width="4" opacity="0.4"/>
+    <circle cx="590" cy="400" r="90" fill="none" stroke="#4FA8D8" stroke-width="2" opacity="0.4"/>
+    <circle cx="590" cy="400" r="3" fill="#4FA8D8" opacity="0.6"/>
+    <circle cx="150" cy="220" r="60" fill="none" stroke="#4FA8D8" stroke-width="2" opacity="0.25"/>
+    <circle cx="150" cy="580" r="60" fill="none" stroke="#4FA8D8" stroke-width="2" opacity="0.25"/>
+    <circle cx="1030" cy="220" r="60" fill="none" stroke="#4FA8D8" stroke-width="2" opacity="0.25"/>
+    <circle cx="1030" cy="580" r="60" fill="none" stroke="#4FA8D8" stroke-width="2" opacity="0.25"/>
+  </svg>
+  <div class="wrap page-hero-inner">
+    <div class="eyebrow">Contact 677 ATC</div>
+    <h1 class="page-title">Let's Get You In the Building</h1>
+    <p class="page-desc">Book a tour, ask about programs, or reach out about team training. We'll get back to you quickly.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap contact-inner">
+    <div class="reveal">
+      <div class="contact-info-block">
+        <div class="label">Phone</div>
+        <div class="value">[Phone Number]</div>
+      </div>
+      <div class="contact-info-block">
+        <div class="label">Email</div>
+        <div class="value">info@677atc.com</div>
+      </div>
+      <div class="contact-info-block">
+        <div class="label">Address</div>
+        <div class="value">[Street Address, City, State]</div>
+      </div>
+      <div class="contact-info-block">
+        <div class="label">Hours</div>
+        <div class="value">[Hours of operation]</div>
+      </div>
+      <div class="hero-ctas" style="margin-top:28px;">
+        <a href="#contact-form" class="btn-primary">Book a Tour</a>
+        <a href="#contact-form" class="btn-secondary">Request Team Training</a>
+      </div>
+      <div class="map-embed">[Google Maps embed]</div>
+    </div>
+    <form class="contact-form reveal" id="contact-form">
+      <div class="field-row">
+        <div class="field"><label for="athlete-name">Athlete Name</label><input type="text" id="athlete-name"></div>
+        <div class="field"><label for="parent-name">Parent Name</label><input type="text" id="parent-name"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label for="age">Age / Grade</label><input type="text" id="age"></div>
+        <div class="field"><label for="sport">Sport</label><input type="text" id="sport" value="Hockey"></div>
+      </div>
+      <div class="field">
+        <label for="interest">Training Interest</label>
+        <select id="interest">
+          <option>Youth Hockey Development</option>
+          <option>High School Hockey Training</option>
+          <option>College / Junior Prep</option>
+          <option>Private Training</option>
+          <option>Small Group Training</option>
+          <option>Team Training</option>
+          <option>Strength &amp; Conditioning</option>
+          <option>Speed &amp; Agility</option>
+          <option>Performance Testing</option>
+          <option>Memberships / Packages</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <div class="field"><label for="level">Current Level</label><input type="text" id="level" placeholder="e.g. Varsity, Youth AAA"></div>
+        <div class="field">
+          <label for="contact-method">Preferred Contact Method</label>
+          <select id="contact-method"><option>Email</option><option>Phone</option><option>Text</option></select>
+        </div>
+      </div>
+      <div class="field"><label for="message">Message</label><textarea id="message" placeholder="Tell us what you're looking for"></textarea></div>
+      <button type="button" class="submit-btn">Send Message</button>
+    </form>
+  </div>
+</section>
+<footer>
+  <div class="wrap footer-inner">
+    <div class="footer-col">
+      <div class="logo"><span class="num">677</span> ATC</div>
+      <p style="color:var(--steel);font-size:13px;margin-top:14px;max-width:220px;">Hockey &amp; athletic performance training center. [Address / location].</p>
+    </div>
+    <div class="footer-col">
+      <h5>Site</h5>
+      <a href="index.html">Home</a>
+      <a href="facility.html">Facility</a>
+      <a href="programs.html">Programs</a>
+      <a href="testing.html">Testing</a>
+      <a href="memberships.html">Memberships</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h5>More</h5>
+      <a href="coaches.html">Coaches</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="teams.html">Teams & Partnerships</a>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <a href="tel:+10000000000">[Phone Number]</a>
+      <a href="mailto:info@677atc.com">info@677atc.com</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <div>&copy; 2026 677 ATC. All rights reserved.</div>
+    <div>Train Skills. Build Strength. Measure Performance.</div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
