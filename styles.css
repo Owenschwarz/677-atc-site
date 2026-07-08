@@ -303,7 +303,50 @@ footer{border-top:1px solid var(--line-white);padding:48px 0;}
   html{scroll-behavior:auto;}
 }
 
-/* ---------- RESPONSIVE ---------- */
+/* ---------- ADMIN ---------- */
+.admin-login{
+  max-width:420px;margin:180px auto 0;padding:40px;
+  background:rgba(255,255,255,0.03);border:1px solid var(--line-white);border-radius:4px;
+}
+.admin-login h2{font-family:var(--font-display);text-transform:uppercase;margin-bottom:8px;font-size:24px;}
+.admin-login p{color:var(--steel);font-size:14px;margin-bottom:24px;}
+.admin-error{color:var(--goal-red);font-size:13px;margin-top:12px;display:none;}
+.admin-bar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:140px 0 32px;flex-wrap:wrap;gap:16px;
+}
+.admin-bar h1{font-family:var(--font-display);text-transform:uppercase;font-size:28px;}
+.filter-tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;}
+.filter-tab{
+  font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:0.5px;
+  padding:8px 16px;border:1px solid var(--line-white);border-radius:2px;cursor:pointer;
+  background:transparent;color:var(--steel);
+}
+.filter-tab.active{border-color:var(--ice-blue);color:var(--ice-blue);}
+.admin-table-wrap{overflow-x:auto;border:1px solid var(--line-white);border-radius:4px;}
+table.admin-table{width:100%;border-collapse:collapse;font-size:14px;}
+table.admin-table th{
+  text-align:left;font-family:var(--font-mono);font-size:11px;text-transform:uppercase;
+  letter-spacing:0.5px;color:var(--steel);padding:14px 16px;border-bottom:1px solid var(--line-white);
+  background:var(--navy-deep);white-space:nowrap;
+}
+table.admin-table td{padding:14px 16px;border-bottom:1px solid var(--line-white);vertical-align:top;}
+table.admin-table tr:last-child td{border-bottom:none;}
+.status-select{
+  background:var(--navy-deep);border:1px solid var(--line-white);color:var(--ice-white);
+  padding:6px 10px;border-radius:2px;font-size:12px;font-family:var(--font-mono);
+}
+.status-badge{
+  font-family:var(--font-mono);font-size:11px;padding:3px 10px;border-radius:2px;text-transform:uppercase;
+  display:inline-block;
+}
+.status-badge.new{background:rgba(214,40,57,0.15);color:var(--goal-red);}
+.status-badge.contacted{background:rgba(79,168,216,0.15);color:var(--ice-blue);}
+.status-badge.archived{background:rgba(138,150,168,0.15);color:var(--steel);}
+.empty-state{padding:60px 20px;text-align:center;color:var(--steel);font-size:14px;}
+.logout-link{font-family:var(--font-mono);font-size:12px;color:var(--steel);cursor:pointer;}
+.logout-link:hover{color:var(--ice-blue);}
+
 @media (max-width:900px){
   .nav-links{display:none;}
   .scoreboard .wrap{grid-template-columns:repeat(2,1fr);}

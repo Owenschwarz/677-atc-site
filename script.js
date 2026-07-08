@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.15 });
   revealEls.forEach(el => io.observe(el));
 
-  const formButtons = document.querySelectorAll('.submit-btn');
+  const formButtons = document.querySelectorAll('.submit-btn:not([data-live])');
   formButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       alert('Form submitted (placeholder — connect this to a real backend or form service like Formspree/Airtable).');

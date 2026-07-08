@@ -8,6 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 </head>
 <body>
 <header>
@@ -71,9 +73,23 @@
       <div class="map-embed">[Google Maps embed]</div>
     </div>
     <form class="contact-form reveal" id="contact-form">
+      <div class="field">
+        <label for="request-type">What's this about?</label>
+        <select id="request-type">
+          <option>General Inquiry</option>
+          <option>Book a Tour</option>
+          <option>Schedule a Class / Session</option>
+          <option>Team Training Request</option>
+          <option>Membership Info</option>
+        </select>
+      </div>
       <div class="field-row">
         <div class="field"><label for="athlete-name">Athlete Name</label><input type="text" id="athlete-name"></div>
         <div class="field"><label for="parent-name">Parent Name</label><input type="text" id="parent-name"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label for="email">Email</label><input type="email" id="email"></div>
+        <div class="field"><label for="phone">Phone</label><input type="tel" id="phone"></div>
       </div>
       <div class="field-row">
         <div class="field"><label for="age">Age / Grade</label><input type="text" id="age"></div>
@@ -95,6 +111,10 @@
         </select>
       </div>
       <div class="field-row">
+        <div class="field"><label for="preferred-date">Preferred Date <span style="opacity:0.6;">(if applicable)</span></label><input type="date" id="preferred-date"></div>
+        <div class="field"><label for="preferred-time">Preferred Time <span style="opacity:0.6;">(if applicable)</span></label><input type="text" id="preferred-time" placeholder="e.g. Weekday evenings"></div>
+      </div>
+      <div class="field-row">
         <div class="field"><label for="level">Current Level</label><input type="text" id="level" placeholder="e.g. Varsity, Youth AAA"></div>
         <div class="field">
           <label for="contact-method">Preferred Contact Method</label>
@@ -102,10 +122,63 @@
         </div>
       </div>
       <div class="field"><label for="message">Message</label><textarea id="message" placeholder="Tell us what you're looking for"></textarea></div>
-      <button type="button" class="submit-btn">Send Message</button>
+      <button type="button" class="submit-btn" id="contact-submit" data-live>Send Message</button>
+      <p id="form-status" style="margin-top:14px;font-size:14px;display:none;"></p>
     </form>
   </div>
 </section>
+
+<script>
+  document.getElementById('contact-submit').addEventListener('click', async () => {
+    const statusEl = document.getElementById('form-status');
+    const btn = document.getElementById('contact-submit');
+    const val = id => document.getElementById(id).value.trim();
+
+    const email = val('email');
+    if (!email) {
+      statusEl.textContent = 'Please enter an email address so we can get back to you.';
+      statusEl.style.display = 'block';
+      statusEl.style.color = 'var(--goal-red)';
+      return;
+    }
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    const { error } = await supabaseClient.from('leads').insert([{
+      request_type: val('request-type'),
+      athlete_name: val('athlete-name'),
+      parent_name: val('parent-name'),
+      email: email,
+      phone: val('phone'),
+      age_grade: val('age'),
+      sport: val('sport'),
+      program_interest: val('interest'),
+      preferred_date: val('preferred-date') || null,
+      preferred_time: val('preferred-time'),
+      current_level: val('level'),
+      contact_method: val('contact-method'),
+      message: val('message'),
+      status: 'new'
+    }]);
+
+    btn.disabled = false;
+
+    if (error) {
+      console.error(error);
+      btn.textContent = 'Send Message';
+      statusEl.textContent = "Something went wrong sending that. Please try again or email us directly.";
+      statusEl.style.color = 'var(--goal-red)';
+      statusEl.style.display = 'block';
+    } else {
+      btn.textContent = 'Sent';
+      statusEl.textContent = "Thanks! We've got your message and will be in touch soon.";
+      statusEl.style.color = 'var(--ice-blue)';
+      statusEl.style.display = 'block';
+      document.getElementById('contact-form').reset();
+    }
+  });
+</script>
 <footer>
   <div class="wrap footer-inner">
     <div class="footer-col">
