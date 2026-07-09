@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up | 677 ATC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><span class="num">677</span> ATC</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="facility.html">Facility</a>
+      <a href="programs.html">Programs</a>
+      <a href="testing.html">Testing</a>
+      <a href="memberships.html">Memberships</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Book a Tour</a>
+  </nav>
+</header>
+
+<!-- SIGNED OUT VIEW -->
+<div id="signup-view" class="admin-login">
+  <h2>Create an Account</h2>
+  <p>New here? Sign up below. <a href="customer-login.html" style="color:var(--ice-blue);">Already have an account? Log in.</a></p>
+  <div class="field"><label for="signup-name">Full Name</label><input type="text" id="signup-name"></div>
+  <div class="field"><label for="signup-email">Email</label><input type="email" id="signup-email"></div>
+  <div class="field"><label for="signup-password">Password</label><input type="password" id="signup-password"></div>
+  <button type="button" class="submit-btn" id="signup-btn" data-live>Create Account</button>
+  <p class="admin-error" id="signup-error"></p>
+  <p style="color:var(--ice-blue);font-size:13px;margin-top:14px;display:none;" id="signup-success"></p>
+</div>
+
+<!-- SIGNED IN VIEW -->
+<div id="account-view" class="wrap" style="display:none;padding:180px 0 100px;max-width:640px;">
+  <div class="section-eyebrow">My Account</div>
+  <h2 class="section-title">Welcome to 677 ATC</h2>
+  <p class="section-desc" id="account-email" style="margin-bottom:32px;"></p>
+  <p style="color:var(--steel);font-size:15px;margin-bottom:32px;">Account features like class schedules, membership details, and progress tracking are coming soon. For now, your account is set up and ready.</p>
+  <button type="button" class="btn-secondary" id="logout-btn">Log Out</button>
+</div>
+
+<script>
+  const signupView = document.getElementById('signup-view');
+  const accountView = document.getElementById('account-view');
+
+  async function checkSession() {
+    const { data: { session } } = await supabaseClient.auth.getSession();
+    if (session) {
+      showAccount(session.user.email);
+    }
+  }
+
+  function showAccount(email) {
+    signupView.style.display = 'none';
+    accountView.style.display = 'block';
+    document.getElementById('account-email').textContent = `Logged in as ${email}`;
+  }
+
+  document.getElementById('signup-btn').addEventListener('click', async () => {
+    const errorEl = document.getElementById('signup-error');
+    const successEl = document.getElementById('signup-success');
+    errorEl.style.display = 'none';
+    successEl.style.display = 'none';
+
+    const name = document.getElementById('signup-name').value.trim();
+    const email = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-password').value;
+
+    if (!email || !password) {
+      errorEl.textContent = 'Please fill in email and password.';
+      errorEl.style.display = 'block';
+      return;
+    }
+    if (password.length < 6) {
+      errorEl.textContent = 'Password must be at least 6 characters.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    const { data, error } = await supabaseClient.auth.signUp({
+      email,
+      password,
+      options: { data: { full_name: name } }
+    });
+
+    if (error) {
+      errorEl.textContent = error.message;
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    if (data.session) {
+      showAccount(data.user.email);
+    } else {
+      successEl.textContent = 'Account created! Check your email to confirm before logging in.';
+      successEl.style.display = 'block';
+    }
+  });
+
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    await supabaseClient.auth.signOut();
+    accountView.style.display = 'none';
+    signupView.style.display = 'block';
+  });
+
+  checkSession();
+</script>
+
+</body>
+</html>
