@@ -83,16 +83,37 @@
   async function checkSession() {
     const { data: { session } } = await supabaseClient.auth.getSession();
     if (session) {
-      showDashboard();
+      const isAdmin = await verifyAdmin(session.user.id);
+      if (isAdmin) {
+        showDashboard();
+      } else {
+        await supabaseClient.auth.signOut();
+        showLogin('This account does not have admin access.');
+      }
     } else {
       showLogin();
     }
   }
 
-  function showLogin() {
+  async function verifyAdmin(userId) {
+    const { data, error } = await supabaseClient
+      .from('profiles')
+      .select('role')
+      .eq('id', userId)
+      .single();
+    if (error || !data) return false;
+    return data.role === 'admin';
+  }
+
+  function showLogin(message) {
     loginView.style.display = 'block';
     dashboardView.style.display = 'none';
     logoutBtn.style.display = 'none';
+    const errorEl = document.getElementById('login-error');
+    if (message) {
+      errorEl.textContent = message;
+      errorEl.style.display = 'block';
+    }
   }
 
   function showDashboard() {
@@ -108,11 +129,19 @@
     const errorEl = document.getElementById('login-error');
     errorEl.style.display = 'none';
 
-    const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
     if (error) {
+      errorEl.textContent = 'Incorrect email or password.';
       errorEl.style.display = 'block';
-    } else {
+      return;
+    }
+    const isAdmin = await verifyAdmin(data.user.id);
+    if (isAdmin) {
       showDashboard();
+    } else {
+      await supabaseClient.auth.signOut();
+      errorEl.textContent = 'This account does not have admin access.';
+      errorEl.style.display = 'block';
     }
   });
 
