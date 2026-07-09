@@ -44,6 +44,13 @@
     <button type="button" class="btn-secondary" id="refresh-btn">Refresh</button>
   </div>
 
+  <div class="summary-grid" id="summary-grid">
+    <div class="summary-card"><div class="num" id="stat-total">0</div><div class="label">Total Leads</div></div>
+    <div class="summary-card"><div class="num" id="stat-week">0</div><div class="label">New This Week</div></div>
+    <div class="summary-card"><div class="num" id="stat-new">0</div><div class="label">Still Marked New</div></div>
+    <div class="summary-card"><div class="num" id="stat-upcoming">0</div><div class="label">Upcoming Tours / Classes</div></div>
+  </div>
+
   <div class="filter-tabs" id="filter-tabs">
     <button class="filter-tab active" data-filter="all">All</button>
     <button class="filter-tab" data-filter="new">New</button>
@@ -63,6 +70,7 @@
           <th>Interest</th>
           <th>Preferred Date/Time</th>
           <th>Message</th>
+          <th>Notes</th>
           <th>Status</th>
         </tr>
       </thead>
@@ -171,7 +179,28 @@
       return;
     }
     allLeads = data;
+    renderSummary();
     renderLeads();
+  }
+
+  function renderSummary() {
+    const now = new Date();
+    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const bookingTypes = ['Book a Tour', 'Schedule a Class / Session'];
+
+    const total = allLeads.length;
+    const thisWeek = allLeads.filter(l => new Date(l.created_at) >= weekAgo).length;
+    const stillNew = allLeads.filter(l => (l.status || 'new') === 'new').length;
+    const upcoming = allLeads.filter(l =>
+      bookingTypes.includes(l.request_type) &&
+      l.preferred_date &&
+      new Date(l.preferred_date) >= new Date(now.toDateString())
+    ).length;
+
+    document.getElementById('stat-total').textContent = total;
+    document.getElementById('stat-week').textContent = thisWeek;
+    document.getElementById('stat-new').textContent = stillNew;
+    document.getElementById('stat-upcoming').textContent = upcoming;
   }
 
   function renderLeads() {
@@ -204,6 +233,10 @@
           <td>${escapeHtml(prefWhen)}</td>
           <td style="max-width:220px;">${escapeHtml(lead.message || '—')}</td>
           <td>
+            <textarea class="notes-input" data-id="${lead.id}" placeholder="Internal note...">${escapeHtml(lead.notes || '')}</textarea>
+            <span class="saved-tick" data-tick="${lead.id}">Saved</span>
+          </td>
+          <td>
             <select class="status-select" data-id="${lead.id}">
               <option value="new" ${status === 'new' ? 'selected' : ''}>New</option>
               <option value="contacted" ${status === 'contacted' ? 'selected' : ''}>Contacted</option>
@@ -213,6 +246,21 @@
         </tr>
       `;
     }).join('');
+
+    document.querySelectorAll('.notes-input').forEach(input => {
+      input.addEventListener('blur', async (e) => {
+        const id = e.target.dataset.id;
+        const newNotes = e.target.value;
+        await supabaseClient.from('leads').update({ notes: newNotes }).eq('id', id);
+        const lead = allLeads.find(l => l.id === id);
+        if (lead) lead.notes = newNotes;
+        const tick = document.querySelector(`[data-tick="${id}"]`);
+        if (tick) {
+          tick.classList.add('show');
+          setTimeout(() => tick.classList.remove('show'), 1500);
+        }
+      });
+    });
 
     document.querySelectorAll('.status-select').forEach(sel => {
       sel.addEventListener('change', async (e) => {
