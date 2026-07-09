@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log In | 677 ATC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .choice-wrap{
+    max-width:640px;margin:0 auto;padding:180px 32px 100px;text-align:center;
+  }
+  .choice-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:48px;
+  }
+  .choice-card{
+    background:rgba(255,255,255,0.03);border:1px solid var(--line-white);border-radius:4px;
+    padding:36px 24px;transition:border-color .2s, background .2s;display:block;
+  }
+  .choice-card:hover{border-color:var(--ice-blue);background:rgba(79,168,216,0.06);}
+  .choice-card h3{
+    font-family:var(--font-display);font-size:19px;text-transform:uppercase;margin-bottom:10px;letter-spacing:0.5px;
+  }
+  .choice-card p{color:var(--steel);font-size:13px;}
+  .choice-signup{
+    grid-column:span 2;background:rgba(214,40,57,0.06);border-color:rgba(214,40,57,0.3);
+  }
+  .choice-signup:hover{border-color:var(--goal-red);background:rgba(214,40,57,0.1);}
+  @media (max-width:600px){
+    .choice-grid{grid-template-columns:1fr;}
+    .choice-signup{grid-column:span 1;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><span class="num">677</span> ATC</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="facility.html">Facility</a>
+      <a href="programs.html">Programs</a>
+      <a href="testing.html">Testing</a>
+      <a href="memberships.html">Memberships</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <a href="contact.html" class="nav-cta">Book a Tour</a>
+  </nav>
+</header>
+
+<div class="choice-wrap">
+  <div class="section-eyebrow reveal" style="justify-content:center;">Welcome</div>
+  <h2 class="section-title reveal">How Do You Want to Log In?</h2>
+  <div class="choice-grid">
+    <a href="account.html?mode=login" class="choice-card reveal">
+      <h3>Customer Log In</h3>
+      <p>Log into your existing 677 ATC account.</p>
+    </a>
+    <a href="admin.html" class="choice-card reveal">
+      <h3>Admin Log In</h3>
+      <p>For 677 ATC staff only.</p>
+    </a>
+    <a href="account.html?mode=signup" class="choice-card choice-signup reveal">
+      <h3>Sign Up</h3>
+      <p>New here? Create a customer account.</p>
+    </a>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -102,6 +102,11 @@
     const { data: { session } } = await supabaseClient.auth.getSession();
     if (session) {
       showAccount(session.user.email);
+      return;
+    }
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('mode') === 'signup') {
+      tabSignup.click();
     }
   }
 
