@@ -41,6 +41,8 @@ nav{
   font-weight:700;font-size:22px;letter-spacing:1px;
   display:flex;align-items:center;gap:10px;
 }
+.logo-img{height:26px;width:auto;display:block;}
+footer .logo-img{height:22px;}
 .logo .num{color:var(--goal-red);}
 .nav-links{display:flex;gap:30px;font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:0.5px;}
 .nav-links a{opacity:0.75;transition:opacity .2s;}
@@ -79,6 +81,11 @@ h1.headline{
 .headline-sub{
   font-family:var(--font-display);font-weight:400;font-size:clamp(16px,2vw,22px);
   color:var(--steel);text-transform:uppercase;letter-spacing:1px;margin-bottom:22px;
+}
+.hero-logo{
+  max-width:460px;width:70%;margin-bottom:28px;
+  mix-blend-mode:screen;
+  filter:drop-shadow(0 0 50px rgba(79,168,216,0.2));
 }
 h1.headline .accent{color:var(--ice-blue);}
 .tagline{
