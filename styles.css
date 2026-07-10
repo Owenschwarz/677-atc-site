@@ -4,7 +4,7 @@
   --rink-blue: #1E5F8C;
   --ice-blue: #4FA8D8;
   --ice-white: #F2F5F7;
-  --steel: #8A96A8;
+  --steel: #A0ACBD;
   --goal-red: #D62839;
   --line-white: rgba(242,245,247,0.14);
   --font-display: 'Oswald', sans-serif;
@@ -35,6 +35,7 @@ header{
 nav{
   display:flex;align-items:center;justify-content:space-between;
   padding:18px 32px;max-width:1180px;margin:0 auto;
+  position:relative;
 }
 .logo{
   font-family:var(--font-display);
@@ -60,6 +61,18 @@ footer .logo-img{height:22px;}
 }
 .login-link:hover{opacity:1;color:var(--ice-blue);}
 
+.menu-toggle{
+  display:none;background:none;border:none;cursor:pointer;
+  width:32px;height:32px;flex-direction:column;justify-content:center;gap:6px;padding:0;
+}
+.menu-toggle span{
+  display:block;width:100%;height:2px;background:var(--ice-white);transition:transform .25s ease, opacity .25s ease;
+}
+.menu-toggle.open span:nth-child(1){transform:translateY(8px) rotate(45deg);}
+.menu-toggle.open span:nth-child(2){opacity:0;}
+.menu-toggle.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg);}
+.mobile-only-link{display:none;}
+
 /* ---------- HOMEPAGE HERO ---------- */
 .hero{
   position:relative;min-height:100vh;display:flex;align-items:center;
@@ -84,8 +97,7 @@ h1.headline{
 }
 .hero-logo{
   max-width:460px;width:70%;margin-bottom:28px;
-  mix-blend-mode:screen;
-  filter:drop-shadow(0 0 50px rgba(79,168,216,0.2));
+  filter:drop-shadow(0 0 40px rgba(79,168,216,0.25));
 }
 h1.headline .accent{color:var(--ice-blue);}
 .tagline{
@@ -378,7 +390,18 @@ table.admin-table tr:last-child td{border-bottom:none;}
 
 @media (max-width:900px){
   .summary-grid{grid-template-columns:repeat(2,1fr);}
-  .nav-links{display:none;}
+  .nav-links{
+    display:none;flex-direction:column;align-items:flex-start;gap:0;
+    position:absolute;top:calc(100% + 1px);left:0;right:0;
+    background:var(--navy-deep);border-bottom:1px solid var(--line-white);
+    padding:8px 32px 20px;
+  }
+  .nav-links.open{display:flex;}
+  .nav-links a{padding:12px 0;width:100%;border-bottom:1px solid var(--line-white);}
+  .nav-links a:last-child{border-bottom:none;}
+  .mobile-only-link{display:block;}
+  .login-link{display:none;}
+  .menu-toggle{display:flex;}
   .scoreboard .wrap{grid-template-columns:repeat(2,1fr);}
   .stat:nth-child(2){border-right:none;}
   .program-grid{grid-template-columns:1fr;}
