@@ -99,6 +99,12 @@ h1.headline{
   max-width:460px;width:70%;margin-bottom:28px;
   filter:drop-shadow(0 0 40px rgba(79,168,216,0.25));
 }
+.hero-glow{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:1;
+  background:radial-gradient(circle 380px at 50% 40%, rgba(79,168,216,0.16), transparent 70%);
+  transition:background .15s ease-out;
+}
 h1.headline .accent{color:var(--ice-blue);}
 .tagline{
   font-family:var(--font-mono);font-size:16px;color:var(--ice-white);
@@ -159,7 +165,8 @@ h2.section-title{
 
 /* ---------- PROGRAM / NUMBERED SEQUENCE CARDS ---------- */
 .program-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line-white);}
-.program-card{background:var(--navy-deep);padding:44px 34px;position:relative;}
+.program-card{background:var(--navy-deep);padding:44px 34px;position:relative;transition:transform .25s ease, background .25s ease;}
+.program-card:hover{transform:translateY(-4px);background:#0c1e33;}
 .program-num{font-family:var(--font-mono);font-size:14px;color:var(--rink-blue);margin-bottom:22px;}
 .program-card h3{font-family:var(--font-display);font-size:22px;text-transform:uppercase;margin-bottom:12px;letter-spacing:0.5px;}
 .program-card p{color:var(--steel);font-size:15px;margin-bottom:18px;}
@@ -170,7 +177,8 @@ h2.section-title{
 
 /* ---------- FACILITY FEATURE GRID ---------- */
 .feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line-white);}
-.feature{background:var(--navy);padding:32px 28px;}
+.feature{background:var(--navy);padding:32px 28px;transition:transform .25s ease, background .25s ease;}
+.feature:hover{transform:translateY(-4px);background:#0d1f36;}
 .feature h4{font-family:var(--font-display);font-size:18px;text-transform:uppercase;margin-bottom:10px;letter-spacing:0.5px;}
 .feature p{color:var(--steel);font-size:14px;}
 .icon-line{width:32px;height:3px;background:var(--goal-red);margin-bottom:18px;}
@@ -202,7 +210,9 @@ h2.section-title{
 .pricing-card{
   background:var(--navy-deep);border:1px solid var(--line-white);border-radius:4px;
   padding:40px 32px;display:flex;flex-direction:column;
+  transition:transform .25s ease, border-color .25s ease;
 }
+.pricing-card:hover{transform:translateY(-4px);border-color:var(--ice-blue);}
 .pricing-card.featured{border-color:var(--goal-red);position:relative;}
 .pricing-badge{
   position:absolute;top:-13px;left:32px;background:var(--goal-red);color:var(--ice-white);
@@ -224,7 +234,8 @@ h2.section-title{
 
 /* ---------- COACH / STAFF CARDS ---------- */
 .coach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
-.coach-card{background:var(--navy-deep);border:1px solid var(--line-white);border-radius:4px;overflow:hidden;}
+.coach-card{background:var(--navy-deep);border:1px solid var(--line-white);border-radius:4px;overflow:hidden;transition:transform .25s ease, border-color .25s ease;}
+.coach-card:hover{transform:translateY(-4px);border-color:var(--ice-blue);}
 .coach-photo{
   aspect-ratio:1/1;background:linear-gradient(135deg,#0d1f36,#132a44);
   display:flex;align-items:center;justify-content:center;
@@ -243,7 +254,8 @@ h2.section-title{
 
 /* ---------- TECHNOLOGY GRID ---------- */
 .tech-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-white);}
-.tech-item{background:var(--navy);padding:40px;display:flex;gap:24px;align-items:flex-start;}
+.tech-item{background:var(--navy);padding:40px;display:flex;gap:24px;align-items:flex-start;transition:background .25s ease;}
+.tech-item:hover{background:#0d1f36;}
 .tech-mark{
   font-family:var(--font-mono);font-size:13px;color:var(--goal-red);
   border:1px solid rgba(214,40,57,0.35);padding:6px 10px;border-radius:2px;white-space:nowrap;
@@ -262,7 +274,8 @@ h2.section-title{
 
 /* ---------- TEAMS / PARTNERSHIPS ---------- */
 .partner-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-white);}
-.partner-card{background:var(--navy);padding:40px;}
+.partner-card{background:var(--navy);padding:40px;transition:background .25s ease;}
+.partner-card:hover{background:#0d1f36;}
 .partner-card h4{font-family:var(--font-display);font-size:20px;text-transform:uppercase;margin-bottom:10px;}
 .partner-card p{color:var(--steel);font-size:14px;}
 
